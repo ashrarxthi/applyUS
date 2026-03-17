@@ -644,36 +644,53 @@ function TextInput({ value, onChange, hint, format, type = "text" }) {
 
 const SECTIONS = ["Eligibility", "Your Information", "Your Address", "Entry Information", "Contact", "Physical Description", "Legal Questions", "Accommodations", "Statement"];
 
-function Sidebar({ currentSection, completedSections }) {
+function Sidebar({ currentSection, completedSections, answers }) {
   return (
     <div style={{ width: "220px", flexShrink: 0 }}>
       <div style={{ position: "sticky", top: "78px" }}>
         <div style={{ fontSize: "10px", fontWeight: "700", color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: "12px", paddingLeft: "4px" }}>
-          Application Progress
+          Sections
         </div>
         {SECTIONS.map((section, i) => {
           const done   = completedSections.includes(section);
           const active = currentSection === section;
+          const sectionQs = QUESTIONS.filter(q => q.section === section && q.type !== "info" && (!q.skip || !q.skip(answers)));
+          const sectionDone = sectionQs.filter(q => answers[q.id]?.toString().trim()).length;
+          const sectionTotal = sectionQs.length;
+          const pct = sectionTotal > 0 ? Math.round((sectionDone / sectionTotal) * 100) : 0;
           return (
             <div key={section} style={{
-              display: "flex", alignItems: "center", gap: "10px",
               padding: "10px 12px", borderRadius: "8px", marginBottom: "4px",
               background: active ? C.navy : "transparent",
               border: `1px solid ${active ? C.navy : done ? C.successBorder : C.border}`,
               transition: "all 0.15s",
             }}>
-              <div style={{
-                width: "22px", height: "22px", borderRadius: "50%", flexShrink: 0,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                background: active ? C.gold : done ? C.success : C.borderLight,
-                fontSize: "11px", fontWeight: "700",
-                color: active || done ? C.white : C.textMuted,
-              }}>
-                {done ? "✓" : i + 1}
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: sectionTotal > 0 ? "6px" : "0" }}>
+                <div style={{
+                  width: "22px", height: "22px", borderRadius: "50%", flexShrink: 0,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  background: active ? C.gold : done ? C.success : C.borderLight,
+                  fontSize: "11px", fontWeight: "700",
+                  color: active || done ? C.white : C.textMuted,
+                }}>
+                  {done ? "✓" : i + 1}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <span style={{ fontSize: "12px", fontWeight: active ? "700" : "500", color: active ? C.white : done ? C.success : C.textMuted }}>
+                    {section}
+                  </span>
+                  {sectionTotal > 0 && (
+                    <span style={{ fontSize: "10px", color: active ? "rgba(255,255,255,0.5)" : C.textMuted, marginLeft: "6px" }}>
+                      {sectionDone}/{sectionTotal}
+                    </span>
+                  )}
+                </div>
               </div>
-              <span style={{ fontSize: "12px", fontWeight: active ? "700" : "500", color: active ? C.white : done ? C.success : C.textMuted }}>
-                {section}
-              </span>
+              {sectionTotal > 0 && (
+                <div style={{ height: "3px", background: active ? "rgba(255,255,255,0.15)" : C.borderLight, borderRadius: "2px", marginLeft: "32px" }}>
+                  <div style={{ height: "100%", width: `${pct}%`, background: active ? C.gold : done ? C.success : C.gold, borderRadius: "2px", transition: "width 0.3s" }} />
+                </div>
+              )}
             </div>
           );
         })}
@@ -820,16 +837,18 @@ export default function I90SmartForm({ onClose }) {
           <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px" }}>Form I-90 — Green Card Renewal</span>
         </div>
         <div style={{ textAlign: "right" }}>
-          <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", marginBottom: "4px" }}>{progress}% complete</div>
-          <div style={{ width: "160px", height: "4px", background: "rgba(255,255,255,0.12)", borderRadius: "2px" }}>
-            <div style={{ height: "100%", width: `${progress}%`, background: C.gold, borderRadius: "2px", transition: "width 0.4s" }} />
+          <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", marginBottom: "4px" }}>
+            Question {queueIndex + 1} of {queue.length} &nbsp;·&nbsp; {progress}% complete
+          </div>
+          <div style={{ width: "200px", height: "5px", background: "rgba(255,255,255,0.12)", borderRadius: "3px" }}>
+            <div style={{ height: "100%", width: `${progress}%`, background: C.gold, borderRadius: "3px", transition: "width 0.4s" }} />
           </div>
         </div>
       </div>
 
       <div style={{ maxWidth: "900px", margin: "0 auto", padding: "48px 2.5rem 80px", display: "flex", gap: "40px" }}>
 
-        <Sidebar currentSection={current.section} completedSections={completedSections} />
+        <Sidebar currentSection={current.section} completedSections={completedSections} answers={answers} />
 
         {/* Question card */}
         <div style={{ flex: 1 }}>
