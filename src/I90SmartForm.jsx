@@ -730,10 +730,12 @@ export default function I90SmartForm({ onClose }) {
 
   const advance = () => {
     if (!current) return;
-    if (current.type !== "info") {
-      setAnswers(prev => ({ ...prev, [current.id]: inputValue }));
-    }
-    if (isLast) { setSubmitted(true); return; }
+    const newAnswers = current.type !== "info"
+      ? { ...answers, [current.id]: inputValue }
+      : answers;
+    if (current.type !== "info") setAnswers(newAnswers);
+    const nextQueue = QUESTIONS.filter(q => !q.skip || !q.skip(newAnswers));
+    if (queueIndex >= nextQueue.length - 1) { setSubmitted(true); return; }
     setQueueIndex(i => i + 1);
   };
 
