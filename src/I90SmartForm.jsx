@@ -910,7 +910,7 @@ export default function I90SmartForm({ onClose }) {
                     ← Back
                   </button>
                   <button onClick={advance} disabled={!canAdvance()} style={{ background: canAdvance() ? C.navy : C.borderLight, color: canAdvance() ? C.white : C.textMuted, border: "none", padding: "12px 32px", borderRadius: "8px", fontSize: "15px", fontWeight: "700", cursor: canAdvance() ? "pointer" : "not-allowed", fontFamily: "'Plus Jakarta Sans', sans-serif", transition: "all 0.15s" }}>
-                    {isLast ? "Submit Application →" : "Continue →"}
+                    {current.id === "sign_date" ? "Submit Application →" : "Continue →"}
                   </button>
                 </div>
               </>
