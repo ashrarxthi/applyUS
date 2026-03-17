@@ -1,3 +1,4 @@
+import I90SmartForm from "./I90SmartForm";
 import { useState, useEffect } from "react";
 
 // ─── Data ──────────────────────────────────────────────────────────────────
@@ -703,6 +704,7 @@ function ApplicationFlow({ form, onClose }) {
   const [application, setApplication] = useState({});
   const [submitted,   setSubmitted]   = useState(false);
 
+  if (form.id === "I-90") return <I90SmartForm onClose={onClose} />;
   return (
     <div style={{
       position: "fixed", inset: 0, zIndex: 1000,
