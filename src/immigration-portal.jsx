@@ -196,7 +196,7 @@ function Navbar({ onConsult }) {
 
 function Hero({ onGetStarted }) {
   return (
-    <div style={{ background: `linear-gradient(140deg, ${C.navy} 0%, #1b3b6a 100%)`, padding: "88px 2.5rem 96px", position: "relative", overflow: "hidden" }}>
+    <div style={{ background: `linear-gradient(140deg, ${C.navy} 0%, #1b3b6a 100%)`, padding: "88px 2.5rem 96px", position: "relative", overflow: "hidden", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
       <div style={{ position: "absolute", top: "-80px", right: "-80px", width: "380px", height: "380px", borderRadius: "50%", border: "1px solid rgba(200,148,42,0.12)" }} />
       <div style={{ position: "absolute", top: "-40px", right: "-40px", width: "260px", height: "260px", borderRadius: "50%", border: "1px solid rgba(200,148,42,0.08)" }} />
       <div style={{ position: "absolute", bottom: "-100px", left: "3%", width: "450px", height: "450px", borderRadius: "50%", border: "1px solid rgba(255,255,255,0.03)" }} />
@@ -704,12 +704,7 @@ function ApplicationFlow({ form, onClose }) {
   const [application, setApplication] = useState({});
   const [submitted,   setSubmitted]   = useState(false);
 
-  if (form.id === "I-90") return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 1000, overflowY: "auto", background: "#fafaf8" }}>
-      <I90SmartForm onClose={onClose} />
-    </div>
-  );
-  
+  if (form.id === "I-90") return <I90SmartForm onClose={onClose} />;
   return (
     <div style={{
       position: "fixed", inset: 0, zIndex: 1000,
