@@ -805,7 +805,7 @@ export default function I90SmartForm({ onClose }) {
 
   if (!current) return null;
 
-  const progress = Math.round((queueIndex / queue.length) * 100);
+  const progress = Math.round(((queueIndex + 1) / queue.length) * 100);
 
   return (
     <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", background: C.offWhite, minHeight: "100vh" }}>
@@ -896,20 +896,7 @@ export default function I90SmartForm({ onClose }) {
             )}
           </div>
 
-          {/* Answer summary strip */}
-          {Object.keys(answers).length > 0 && (
-            <div style={{ background: C.white, borderRadius: "10px", border: `1px solid ${C.border}`, padding: "14px 20px" }}>
-              <div style={{ fontSize: "10px", fontWeight: "700", color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: "10px" }}>Your answers so far</div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                {Object.entries(answers).slice(-6).map(([k, v]) => (
-                  <div key={k} style={{ background: C.offWhite, border: `1px solid ${C.border}`, borderRadius: "6px", padding: "4px 10px", fontSize: "12px", color: C.textSecondary }}>
-                    <span style={{ color: C.textMuted }}>{k.replace(/_/g," ")}: </span>
-                    <strong style={{ color: C.navy }}>{v}</strong>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+
         </div>
       </div>
     </div>
