@@ -720,6 +720,8 @@ export default function I90SmartForm({ onClose }) {
   const queue = QUESTIONS.filter(q => !q.skip || !q.skip(answers));
   const current = queue[queueIndex];
   const isLast = queueIndex >= queue.length - 1;
+  // Use full non-info question count for stable total in progress bar
+  const totalQuestions = QUESTIONS.filter(q => q.type !== "info").length;
 
   // Track completed sections
   const completedSections = [];
@@ -822,7 +824,7 @@ export default function I90SmartForm({ onClose }) {
 
   if (!current) return null;
 
-  const progress = Math.round(((queueIndex + 1) / queue.length) * 100);
+  const progress = Math.round(((queueIndex + 1) / totalQuestions) * 100);
 
   return (
     <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", background: C.offWhite, minHeight: "100vh" }}>
@@ -838,7 +840,7 @@ export default function I90SmartForm({ onClose }) {
         </div>
         <div style={{ textAlign: "right" }}>
           <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", marginBottom: "4px" }}>
-            Question {queueIndex + 1} of {queue.length} &nbsp;·&nbsp; {progress}% complete
+            Question {queueIndex + 1} of {totalQuestions} &nbsp;·&nbsp; {progress}% complete
           </div>
           <div style={{ width: "200px", height: "5px", background: "rgba(255,255,255,0.12)", borderRadius: "3px" }}>
             <div style={{ height: "100%", width: `${progress}%`, background: C.gold, borderRadius: "3px", transition: "width 0.4s" }} />
