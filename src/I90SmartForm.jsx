@@ -752,44 +752,52 @@ export default function I90SmartForm({ onClose }) {
 
   // Confirmation screen
   if (submitted) {
+    const ref = Math.random().toString(36).substr(2,8).toUpperCase();
     return (
       <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", background: C.offWhite, minHeight: "100vh" }}>
-        <div style={{ background: C.navy, height: "64px", display: "flex", alignItems: "center", padding: "0 2.5rem", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-            <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: "700", fontSize: "22px", color: C.white }}>Apply</span>
-            <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: "700", fontSize: "22px", color: C.gold }}>US</span>
-          </div>
+        <div style={{ background: C.navy, height: "64px", display: "flex", alignItems: "center", padding: "0 2.5rem" }}>
+          <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: "700", fontSize: "22px", color: C.white }}>Apply</span>
+          <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: "700", fontSize: "22px", color: C.gold }}>US</span>
         </div>
         <div style={{ maxWidth: "580px", margin: "80px auto", padding: "0 2rem", textAlign: "center" }}>
-          <div style={{ width: "72px", height: "72px", borderRadius: "50%", background: C.successLight, border: `2px solid ${C.successBorder}`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 28px", fontSize: "28px" }}>✓</div>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "30px", color: C.navy, marginBottom: "14px" }}>Application Complete</h2>
-          <p style={{ color: C.textSecondary, fontSize: "15px", lineHeight: "1.7", marginBottom: "36px" }}>
-            Your answers have been recorded, {answers.given_name}. Click below to download the completed official USCIS I-90 form with your information filled in. Your attorney at ApplyUS will review it before filing.
+
+          <div style={{ width: "80px", height: "80px", borderRadius: "50%", background: C.successLight, border: `2px solid ${C.successBorder}`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 28px", fontSize: "34px" }}>✓</div>
+
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "32px", color: C.navy, marginBottom: "14px" }}>
+            You're Almost There{answers.given_name ? `, ${answers.given_name}` : ""}!
+          </h2>
+          <p style={{ color: C.textSecondary, fontSize: "15px", lineHeight: "1.75", marginBottom: "32px" }}>
+            Your I-90 application has been submitted to ApplyUS. A licensed immigration attorney will review your information, prepare your official USCIS filing, and reach out to you within 1–2 business days.
           </p>
 
-          <button onClick={handleDownload} disabled={generating} style={{
-            background: C.gold, color: C.white, border: "none",
-            padding: "16px 36px", borderRadius: "10px", fontSize: "16px",
-            fontWeight: "700", cursor: "pointer", fontFamily: "'Plus Jakarta Sans', sans-serif",
-            width: "100%", marginBottom: "14px", transition: "background 0.15s",
-          }}>
-            {generating ? "Generating your PDF…" : "⬇ Download My Completed I-90"}
-          </button>
+          <div style={{ background: C.goldLight, border: `1px solid ${C.goldBorder}`, borderRadius: "12px", padding: "20px 24px", marginBottom: "28px" }}>
+            <div style={{ fontSize: "11px", fontWeight: "700", color: "#7a5810", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: "8px" }}>Your Case Reference Number</div>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "28px", fontWeight: "700", color: C.navy }}>{ref}</div>
+            <div style={{ fontSize: "12px", color: "#7a5810", marginTop: "6px" }}>Save this number — you'll need it to check your case status.</div>
+          </div>
+
+          <div style={{ background: C.white, border: `1px solid ${C.border}`, borderRadius: "12px", padding: "20px 24px", marginBottom: "28px", textAlign: "left" }}>
+            <div style={{ fontSize: "12px", fontWeight: "700", color: C.navy, textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: "14px" }}>What happens next</div>
+            {[
+              ["1–2 business days", "An attorney reviews your application and verifies all information"],
+              ["2–3 business days", "You receive a confirmation email with next steps and document checklist"],
+              ["Within 1 week",     "Your attorney files Form I-90 with USCIS on your behalf"],
+            ].map(([time, desc]) => (
+              <div key={time} style={{ display: "flex", gap: "14px", marginBottom: "14px", alignItems: "flex-start" }}>
+                <div style={{ background: C.navy, color: C.white, borderRadius: "6px", padding: "3px 8px", fontSize: "11px", fontWeight: "700", whiteSpace: "nowrap", marginTop: "2px" }}>{time}</div>
+                <span style={{ fontSize: "13px", color: C.textSecondary, lineHeight: "1.55" }}>{desc}</span>
+              </div>
+            ))}
+          </div>
 
           <button onClick={onClose} style={{
-            background: "transparent", color: C.textSecondary,
-            border: `1px solid ${C.border}`, padding: "13px 36px",
-            borderRadius: "10px", fontSize: "15px", fontWeight: "500",
-            cursor: "pointer", fontFamily: "'Plus Jakarta Sans', sans-serif", width: "100%",
+            background: C.navy, color: C.white, border: "none",
+            padding: "14px 36px", borderRadius: "10px", fontSize: "15px",
+            fontWeight: "700", cursor: "pointer", fontFamily: "'Plus Jakarta Sans', sans-serif", width: "100%",
           }}>
             ← Back to ApplyUS
           </button>
 
-          <div style={{ marginTop: "28px", background: C.goldLight, border: `1px solid ${C.goldBorder}`, borderRadius: "10px", padding: "16px 20px" }}>
-            <p style={{ fontSize: "13px", color: "#7a5810", lineHeight: "1.65" }}>
-              <strong>Note:</strong> This PDF is a draft for attorney review only. Do not submit it directly to USCIS. Your ApplyUS attorney will verify everything and file on your behalf.
-            </p>
-          </div>
         </div>
       </div>
     );
