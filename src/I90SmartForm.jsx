@@ -414,7 +414,7 @@ const QUESTIONS = [
     section: "Statement",
     question: "Did someone interpret this application into another language for you?",
     type: "yesno",
-    skip: (a) => !a.hair_color,
+    skip: (a) => !a.needs_accommodation,
   },
   {
     id: "sign_date",
@@ -422,7 +422,7 @@ const QUESTIONS = [
     question: "Today's date — by continuing you certify that all information is complete, true, and correct.",
     type: "date",
     prefill: () => new Date().toISOString().split("T")[0],
-    skip: (a) => !a.hair_color,
+    skip: (a) => !a.used_interpreter,
   },
 ];
 
@@ -910,7 +910,7 @@ export default function I90SmartForm({ onClose }) {
                     ← Back
                   </button>
                   <button onClick={advance} disabled={!canAdvance()} style={{ background: canAdvance() ? C.navy : C.borderLight, color: canAdvance() ? C.white : C.textMuted, border: "none", padding: "12px 32px", borderRadius: "8px", fontSize: "15px", fontWeight: "700", cursor: canAdvance() ? "pointer" : "not-allowed", fontFamily: "'Plus Jakarta Sans', sans-serif", transition: "all 0.15s" }}>
-                    {isLast ? "Review & Download →" : "Continue →"}
+                    {isLast ? "Submit Application →" : "Continue →"}
                   </button>
                 </div>
               </>
