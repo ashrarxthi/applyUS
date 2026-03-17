@@ -704,7 +704,11 @@ function ApplicationFlow({ form, onClose }) {
   const [application, setApplication] = useState({});
   const [submitted,   setSubmitted]   = useState(false);
 
-  if (form.id === "I-90") return <I90SmartForm onClose={onClose} />;
+  if (form.id === "I-90") return (
+    <div style={{ position: "fixed", inset: 0, zIndex: 1000, overflowY: "auto", background: "#fafaf8" }}>
+      <I90SmartForm onClose={onClose} />
+    </div>
+  );  
   return (
     <div style={{
       position: "fixed", inset: 0, zIndex: 1000,
