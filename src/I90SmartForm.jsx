@@ -654,9 +654,9 @@ function Sidebar({ currentSection, completedSections, answers }) {
         {SECTIONS.map((section, i) => {
           const done   = completedSections.includes(section);
           const active = currentSection === section;
-          const sectionQs = QUESTIONS.filter(q => q.section === section && q.type !== "info" && (!q.skip || !q.skip(answers)));
-          const sectionDone = sectionQs.filter(q => answers[q.id]?.toString().trim()).length;
-          const sectionTotal = sectionQs.length;
+          // Total is fixed from full list — answered is from live queue
+          const sectionTotal = QUESTIONS.filter(q => q.section === section && q.type !== "info").length;
+          const sectionDone = QUESTIONS.filter(q => q.section === section && q.type !== "info" && answers[q.id]?.toString().trim()).length;
           const pct = sectionTotal > 0 ? Math.round((sectionDone / sectionTotal) * 100) : 0;
           return (
             <div key={section} style={{
