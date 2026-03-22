@@ -196,7 +196,7 @@ function Navbar({ onConsult }) {
 
 function Hero({ onGetStarted }) {
   return (
-    <div style={{ background: `linear-gradient(140deg, ${C.navy} 0%, #1b3b6a 100%)`, padding: "88px 2.5rem 96px", position: "relative", overflow: "hidden", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+    <div style={{ background: `linear-gradient(140deg, ${C.navy} 0%, #1b3b6a 100%)`, padding: "88px 2.5rem 96px", position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", top: "-80px", right: "-80px", width: "380px", height: "380px", borderRadius: "50%", border: "1px solid rgba(200,148,42,0.12)" }} />
       <div style={{ position: "absolute", top: "-40px", right: "-40px", width: "260px", height: "260px", borderRadius: "50%", border: "1px solid rgba(200,148,42,0.08)" }} />
       <div style={{ position: "absolute", bottom: "-100px", left: "3%", width: "450px", height: "450px", borderRadius: "50%", border: "1px solid rgba(255,255,255,0.03)" }} />
@@ -311,8 +311,9 @@ function FormsSection({ onSelectForm }) {
                   padding: "18px 24px", gap: "16px", alignItems: "center",
                   borderBottom: idx < filtered.length - 1 ? `1px solid ${C.borderLight}` : "none",
                   transition: "background 0.12s",
+                  opacity: ["I-90", "N-400"].includes(form.id) ? 1 : 0.6,
                 }}
-                onMouseEnter={e => e.currentTarget.style.background = "#f8f6f2"}
+                onMouseEnter={e => { if (["I-90", "N-400"].includes(form.id)) e.currentTarget.style.background = "#f8f6f2"; }}
                 onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
                 <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: "700", color: C.navy, fontSize: "15px" }}>{form.id}</div>
                 <div>
@@ -325,16 +326,27 @@ function FormsSection({ onSelectForm }) {
                   </span>
                 </div>
                 <div style={{ color: C.textSecondary, fontSize: "14px", fontWeight: "600" }}>${form.fee.toLocaleString()}</div>
-                <button onClick={() => onSelectForm(form)} style={{
-                  background: C.navy, color: C.white, border: "none",
-                  padding: "9px 18px", borderRadius: "7px", fontSize: "13px",
-                  fontWeight: "600", cursor: "pointer", fontFamily: "'Plus Jakarta Sans', sans-serif",
-                  transition: "background 0.15s", whiteSpace: "nowrap",
-                }}
-                  onMouseEnter={e => e.currentTarget.style.background = C.navyMid}
-                  onMouseLeave={e => e.currentTarget.style.background = C.navy}>
-                  Start Now →
-                </button>
+                {["I-90", "N-400"].includes(form.id) ? (
+                  <button onClick={() => onSelectForm(form)} style={{
+                    background: C.navy, color: C.white, border: "none",
+                    padding: "9px 18px", borderRadius: "7px", fontSize: "13px",
+                    fontWeight: "600", cursor: "pointer", fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    transition: "background 0.15s", whiteSpace: "nowrap",
+                  }}
+                    onMouseEnter={e => e.currentTarget.style.background = C.navyMid}
+                    onMouseLeave={e => e.currentTarget.style.background = C.navy}>
+                    Start Now →
+                  </button>
+                ) : (
+                  <span style={{
+                    background: C.borderLight, color: C.textMuted,
+                    padding: "9px 18px", borderRadius: "7px", fontSize: "12px",
+                    fontWeight: "600", fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    whiteSpace: "nowrap", display: "inline-block",
+                  }}>
+                    Coming Soon
+                  </span>
+                )}
               </div>
             );
           })}
@@ -704,11 +716,7 @@ function ApplicationFlow({ form, onClose }) {
   const [application, setApplication] = useState({});
   const [submitted,   setSubmitted]   = useState(false);
 
-  if (form.id === "I-90") return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 1000, overflowY: "auto", background: "#fafaf8" }}>
-      <I90SmartForm onClose={onClose} />
-    </div>
-  );  
+  if (form.id === "I-90") return <I90SmartForm onClose={onClose} />;
   return (
     <div style={{
       position: "fixed", inset: 0, zIndex: 1000,
