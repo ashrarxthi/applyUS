@@ -136,7 +136,7 @@ export default function PricingPage() {
               </div>
 
               <button
-                onClick={() => alert("DIY Kit purchase — Stripe coming soon!")}
+                onClick={() => navigate(`/apply/${formId}/diy`)}
                 style={{
                   width: "100%", padding: "14px", borderRadius: "9px",
                   border: `2px solid ${C.navy}`, background: C.white,

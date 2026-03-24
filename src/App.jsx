@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useParams, useNavigate } from "react-router-dom";
 import ImmigrationPortal from "./immigration-portal";
 import PricingPage from "./PricingPage";
+import DIYKitPage from "./DIYKitPage";
 import I90SmartForm from "./I90SmartForm";
 
 function FormRoute() {
@@ -29,6 +30,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<ImmigrationPortal />} />
         <Route path="/apply/:formId" element={<PricingPage />} />
+        <Route path="/apply/:formId/diy" element={<DIYKitPage />} />
         <Route path="/apply/:formId/start" element={<FormRoute />} />
       </Routes>
     </BrowserRouter>
