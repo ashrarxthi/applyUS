@@ -707,6 +707,148 @@ function ReviewStep({ form, registration, application, onBack, onSubmit, submitt
   );
 }
 
+
+// ─── Pricing Selection ──────────────────────────────────────────────────────
+
+const DIY_FEATURES = [
+  "Official USCIS form package (PDF)",
+  "Step-by-step filing instructions",
+  "Document checklist",
+  "Mailing address guide by state",
+  "Eligibility information",
+  "Cover letter template",
+  "Filing fee guidance",
+  "Email support for general questions",
+];
+
+const ONLINE_FEATURES = [
+  "Everything in the DIY Kit",
+  "Guided online application (question by question)",
+  "Attorney review of your completed form",
+  "Auto-filled official USCIS PDF",
+  "Direct attorney communication",
+  "USCIS submission on your behalf",
+  "Case status monitoring",
+  "Dedicated case manager",
+];
+
+function PricingSelection({ form, onSelectDIY, onSelectOnline, onClose }) {
+  return (
+    <div style={{
+      position: "fixed", inset: 0, zIndex: 1000,
+      background: "rgba(13,36,68,0.75)", display: "flex",
+      alignItems: "flex-start", justifyContent: "center",
+      padding: "40px 20px 60px", overflowY: "auto",
+    }}>
+      <div style={{ background: C.white, borderRadius: "18px", width: "100%", maxWidth: "820px", padding: "48px", position: "relative" }}>
+        
+        <button onClick={onClose} style={{
+          position: "absolute", top: "18px", right: "18px",
+          background: C.offWhite, border: `1px solid ${C.border}`,
+          borderRadius: "50%", width: "36px", height: "36px",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          cursor: "pointer", fontSize: "18px", color: C.textSecondary,
+          fontFamily: "'Plus Jakarta Sans', sans-serif", lineHeight: 1,
+        }}>×</button>
+
+        <div style={{ textAlign: "center", marginBottom: "40px" }}>
+          <div style={{ fontSize: "11px", fontWeight: "700", color: C.gold, letterSpacing: "0.8px", textTransform: "uppercase", marginBottom: "10px" }}>
+            {form.id} — {form.name}
+          </div>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "28px", color: C.navy, marginBottom: "12px" }}>
+            Choose How You'd Like to File
+          </h2>
+          <p style={{ color: C.textSecondary, fontSize: "15px", maxWidth: "460px", margin: "0 auto", lineHeight: "1.65" }}>
+            Both options get you the official USCIS form. Choose what level of support works best for you.
+          </p>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+          
+          {/* DIY Kit */}
+          <div style={{
+            border: `1.5px solid ${C.border}`, borderRadius: "14px",
+            padding: "32px 28px", display: "flex", flexDirection: "column",
+          }}>
+            <div style={{ marginBottom: "20px" }}>
+              <div style={{ fontSize: "11px", fontWeight: "700", color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: "8px" }}>
+                Do It Yourself
+              </div>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "36px", fontWeight: "700", color: C.navy, lineHeight: "1" }}>
+                $150
+              </div>
+              <div style={{ color: C.textMuted, fontSize: "12px", marginTop: "6px" }}>One-time kit purchase</div>
+            </div>
+
+            <div style={{ flex: 1, marginBottom: "28px" }}>
+              {DIY_FEATURES.map((f, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginBottom: "10px" }}>
+                  <div style={{ width: "18px", height: "18px", borderRadius: "50%", background: C.borderLight, border: `1px solid ${C.border}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "1px", fontSize: "10px", color: C.textSecondary, fontWeight: "700" }}>✓</div>
+                  <span style={{ fontSize: "13px", color: C.textSecondary, lineHeight: "1.5" }}>{f}</span>
+                </div>
+              ))}
+            </div>
+
+            <button onClick={onSelectDIY} style={{
+              background: C.white, color: C.navy,
+              border: `2px solid ${C.navy}`,
+              padding: "13px 20px", borderRadius: "8px", fontSize: "14px",
+              fontWeight: "700", cursor: "pointer", fontFamily: "'Plus Jakarta Sans', sans-serif",
+              width: "100%", transition: "all 0.15s",
+            }}
+              onMouseEnter={e => { e.currentTarget.style.background = C.navy; e.currentTarget.style.color = C.white; }}
+              onMouseLeave={e => { e.currentTarget.style.background = C.white; e.currentTarget.style.color = C.navy; }}>
+              Get the DIY Kit →
+            </button>
+          </div>
+
+          {/* File Online */}
+          <div style={{
+            border: `2px solid ${C.gold}`, borderRadius: "14px",
+            padding: "32px 28px", display: "flex", flexDirection: "column",
+            position: "relative", background: C.goldLight,
+          }}>
+            <div style={{ marginBottom: "20px" }}>
+              <div style={{ fontSize: "11px", fontWeight: "700", color: C.gold, textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: "8px" }}>
+                File Online with Attorney
+              </div>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "36px", fontWeight: "700", color: C.navy, lineHeight: "1" }}>
+                $280
+              </div>
+              <div style={{ color: C.textMuted, fontSize: "12px", marginTop: "6px" }}>Attorney-assisted filing</div>
+            </div>
+
+            <div style={{ flex: 1, marginBottom: "28px" }}>
+              {ONLINE_FEATURES.map((f, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginBottom: "10px" }}>
+                  <div style={{ width: "18px", height: "18px", borderRadius: "50%", background: C.gold, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "1px", fontSize: "10px", color: C.white, fontWeight: "700" }}>✓</div>
+                  <span style={{ fontSize: "13px", color: C.navy, lineHeight: "1.5", fontWeight: i === 0 ? "400" : "400" }}>{f}</span>
+                </div>
+              ))}
+            </div>
+
+            <button onClick={onSelectOnline} style={{
+              background: C.gold, color: C.white, border: "none",
+              padding: "13px 20px", borderRadius: "8px", fontSize: "14px",
+              fontWeight: "700", cursor: "pointer", fontFamily: "'Plus Jakarta Sans', sans-serif",
+              width: "100%", transition: "background 0.15s",
+            }}
+              onMouseEnter={e => e.currentTarget.style.background = "#b07d1e"}
+              onMouseLeave={e => e.currentTarget.style.background = C.gold}>
+              Start My Application →
+            </button>
+          </div>
+
+        </div>
+
+        <p style={{ textAlign: "center", color: C.textMuted, fontSize: "12px", marginTop: "22px", lineHeight: "1.6" }}>
+          Government USCIS filing fees (${form.fee.toLocaleString()}) are separate and paid directly to USCIS. Both options include a refund if you are found ineligible.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ─── Application Flow Modal ────────────────────────────────────────────────
 
 function ApplicationFlow({ form, onClose }) {
@@ -716,11 +858,7 @@ function ApplicationFlow({ form, onClose }) {
   const [application, setApplication] = useState({});
   const [submitted,   setSubmitted]   = useState(false);
 
-  if (form.id === "I-90") return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 1000, overflowY: "auto", background: "#fafaf8" }}>
-      <I90SmartForm onClose={onClose} />
-    </div>
-  );
+  if (form.id === "I-90") return <I90SmartForm onClose={onClose} />;
   return (
     <div style={{
       position: "fixed", inset: 0, zIndex: 1000,
@@ -811,6 +949,7 @@ function Footer() {
 
 export default function App() {
   const [selectedForm, setSelectedForm] = useState(null);
+  const [pricingForm,  setPricingForm]  = useState(null);
 
   useEffect(() => {
     const link = document.createElement("link");
@@ -827,11 +966,19 @@ export default function App() {
       <Navbar onConsult={() => alert("Consultation scheduling — connect your calendar here.")} />
       <Hero onGetStarted={() => document.getElementById("forms")?.scrollIntoView({ behavior: "smooth" })} />
       <div id="forms">
-        <FormsSection onSelectForm={setSelectedForm} />
+        <FormsSection onSelectForm={(form) => { setPricingForm(form); setSelectedForm(null); }} />
       </div>
       <WhyUs />
       <Footer />
-      {selectedForm && <ApplicationFlow form={selectedForm} onClose={() => setSelectedForm(null)} />}
+      {pricingForm && !selectedForm && (
+        <PricingSelection
+          form={pricingForm}
+          onSelectDIY={() => { alert("DIY Kit purchase coming soon — Stripe integration in progress."); }}
+          onSelectOnline={() => { setSelectedForm(pricingForm); setPricingForm(null); }}
+          onClose={() => setPricingForm(null)}
+        />
+      )}
+      {selectedForm && <ApplicationFlow form={selectedForm} onClose={() => { setSelectedForm(null); setPricingForm(null); }} />}
     </div>
   );
 }
