@@ -1,5 +1,6 @@
 import I90SmartForm from "./I90SmartForm";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // ─── Data ──────────────────────────────────────────────────────────────────
 
@@ -260,8 +261,10 @@ function Hero({ onGetStarted }) {
 
 // ─── Forms Section ─────────────────────────────────────────────────────────
 
-function FormsSection({ onSelectForm }) {
+function FormsSection() {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState("All");
+  const onSelectForm = (form) => navigate(`/apply/${form.id}`);
   const categories = ["All", ...new Set(FORMS.map(f => f.category))];
   const filtered = filter === "All" ? FORMS : FORMS.filter(f => f.category === filter);
 
@@ -948,9 +951,6 @@ function Footer() {
 // ─── App ───────────────────────────────────────────────────────────────────
 
 export default function App() {
-  const [selectedForm, setSelectedForm] = useState(null);
-  const [pricingForm,  setPricingForm]  = useState(null);
-
   useEffect(() => {
     const link = document.createElement("link");
     link.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap";
@@ -966,19 +966,10 @@ export default function App() {
       <Navbar onConsult={() => alert("Consultation scheduling — connect your calendar here.")} />
       <Hero onGetStarted={() => document.getElementById("forms")?.scrollIntoView({ behavior: "smooth" })} />
       <div id="forms">
-        <FormsSection onSelectForm={(form) => { setPricingForm(form); setSelectedForm(null); }} />
+        <FormsSection />
       </div>
       <WhyUs />
       <Footer />
-      {pricingForm && !selectedForm && (
-        <PricingSelection
-          form={pricingForm}
-          onSelectDIY={() => { alert("DIY Kit purchase coming soon — Stripe integration in progress."); }}
-          onSelectOnline={() => { setSelectedForm(pricingForm); setPricingForm(null); }}
-          onClose={() => setPricingForm(null)}
-        />
-      )}
-      {selectedForm && <ApplicationFlow form={selectedForm} onClose={() => { setSelectedForm(null); setPricingForm(null); }} />}
     </div>
   );
 }
