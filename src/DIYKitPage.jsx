@@ -50,6 +50,7 @@ export default function DIYKitPage() {
   const [card,     setCard]     = useState("");
   const [expiry,   setExpiry]   = useState("");
   const [cvv,      setCvv]      = useState("");
+  const [password, setPassword] = useState("");
   const [loading,  setLoading]  = useState(false);
   const [errors,   setErrors]   = useState({});
 
@@ -81,6 +82,7 @@ export default function DIYKitPage() {
     const e = {};
     if (!name.trim())    e.name   = "Name is required";
     if (!email.trim() || !email.includes("@")) e.email = "Valid email required";
+    if (password.length < 6)                    e.password = "Password must be at least 6 characters";
     if (card.replace(/\s/g,"").length < 16)    e.card  = "Enter a valid 16-digit card number";
     if (!expiry.includes("/"))                  e.expiry= "Enter expiry as MM / YY";
     if (cvv.length < 3)                         e.cvv   = "Enter a valid CVV";
@@ -92,8 +94,15 @@ export default function DIYKitPage() {
     if (Object.keys(e).length > 0) { setErrors(e); return; }
     setErrors({});
     setLoading(true);
-    // Simulate payment processing
-    setTimeout(() => { setLoading(false); setScreen("success"); }, 2000);
+    setTimeout(() => {
+      // Save account to localStorage
+      const accounts = JSON.parse(localStorage.getItem("applyus_accounts") || "{}");
+      accounts[email] = { name, password, purchases: [formId] };
+      localStorage.setItem("applyus_accounts", JSON.stringify(accounts));
+      localStorage.setItem("applyus_user", JSON.stringify({ email, name }));
+      setLoading(false);
+      setScreen("success");
+    }, 2000);
   };
 
   const handleDownload = () => {
@@ -186,6 +195,12 @@ export default function DIYKitPage() {
                   <FocusInput placeholder="you@email.com" value={email} onChange={setEmail} type="email" />
                   {errors.email && <p style={{ color: C.danger, fontSize: "11px", marginTop: "4px" }}>{errors.email}</p>}
                   <p style={{ fontSize: "11px", color: C.textMuted, marginTop: "5px" }}>Your kit will be emailed here after purchase.</p>
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: C.textSecondary, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>Create Password</label>
+                  <FocusInput placeholder="Min. 6 characters" value={password} onChange={setPassword} type="password" />
+                  {errors.password && <p style={{ color: C.danger, fontSize: "11px", marginTop: "4px" }}>{errors.password}</p>}
+                  <p style={{ fontSize: "11px", color: C.textMuted, marginTop: "5px" }}>This creates your ApplyUS account so you can access your kit anytime.</p>
                 </div>
               </div>
 

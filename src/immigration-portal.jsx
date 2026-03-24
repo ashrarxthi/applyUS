@@ -157,7 +157,7 @@ function Field({ field, value, onChange }) {
 
 // ─── Navbar ────────────────────────────────────────────────────────────────
 
-function Navbar({ onConsult }) {
+function Navbar({ onConsult, onSignIn }) {
   return (
     <nav style={{
       background: C.navy, padding: "0 2.5rem", display: "flex",
@@ -180,15 +180,27 @@ function Navbar({ onConsult }) {
         ))}
       </div>
 
-      <button onClick={onConsult} style={{
-        background: C.gold, color: C.white, border: "none",
-        padding: "10px 22px", borderRadius: "7px", fontSize: "13px",
-        fontWeight: "600", cursor: "pointer", fontFamily: "'Plus Jakarta Sans', sans-serif",
-      }}
-        onMouseEnter={e => e.currentTarget.style.background = "#b07d1e"}
-        onMouseLeave={e => e.currentTarget.style.background = C.gold}>
-        Free Consultation
-      </button>
+      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+        <button onClick={onSignIn} style={{
+          background: "transparent", color: "rgba(255,255,255,0.75)", border: "1px solid rgba(255,255,255,0.25)",
+          padding: "9px 20px", borderRadius: "7px", fontSize: "13px",
+          fontWeight: "500", cursor: "pointer", fontFamily: "'Plus Jakarta Sans', sans-serif",
+          transition: "all 0.15s",
+        }}
+          onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = C.white; }}
+          onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "rgba(255,255,255,0.75)"; }}>
+          Sign In
+        </button>
+        <button onClick={onConsult} style={{
+          background: C.gold, color: C.white, border: "none",
+          padding: "10px 22px", borderRadius: "7px", fontSize: "13px",
+          fontWeight: "600", cursor: "pointer", fontFamily: "'Plus Jakarta Sans', sans-serif",
+        }}
+          onMouseEnter={e => e.currentTarget.style.background = "#b07d1e"}
+          onMouseLeave={e => e.currentTarget.style.background = C.gold}>
+          Free Consultation
+        </button>
+      </div>
     </nav>
   );
 }
@@ -950,6 +962,11 @@ function Footer() {
 
 // ─── App ───────────────────────────────────────────────────────────────────
 
+function NavbarWithRouter({ onConsult }) {
+  const navigate = useNavigate();
+  return <Navbar onConsult={onConsult} onSignIn={() => navigate("/login")} />;
+}
+
 export default function App() {
   useEffect(() => {
     const link = document.createElement("link");
@@ -963,7 +980,7 @@ export default function App() {
 
   return (
     <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-      <Navbar onConsult={() => alert("Consultation scheduling — connect your calendar here.")} />
+      <NavbarWithRouter onConsult={() => alert("Consultation scheduling — connect your calendar here.")} />
       <Hero onGetStarted={() => document.getElementById("forms")?.scrollIntoView({ behavior: "smooth" })} />
       <div id="forms">
         <FormsSection />
