@@ -125,10 +125,10 @@ export default function PricingPage() {
                   <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
                     <div style={{
                       width: "20px", height: "20px", borderRadius: "50%",
-                      background: C.borderLight, border: `1.5px solid ${C.border}`,
+                      background: "#e6f4ec", border: "1.5px solid #a7d7bc",
                       display: "flex", alignItems: "center", justifyContent: "center",
                       flexShrink: 0, marginTop: "1px", fontSize: "10px",
-                      color: C.textSecondary, fontWeight: "700",
+                      color: "#2d7a4f", fontWeight: "700",
                     }}>✓</div>
                     <span style={{ fontSize: "14px", color: C.textSecondary, lineHeight: "1.5" }}>{f}</span>
                   </div>
@@ -176,10 +176,10 @@ export default function PricingPage() {
                   <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
                     <div style={{
                       width: "20px", height: "20px", borderRadius: "50%",
-                      background: C.borderLight, border: `1.5px solid ${C.border}`,
+                      background: "#e6f4ec", border: "1.5px solid #a7d7bc",
                       display: "flex", alignItems: "center", justifyContent: "center",
                       flexShrink: 0, marginTop: "1px", fontSize: "10px",
-                      color: C.textSecondary, fontWeight: "700",
+                      color: "#2d7a4f", fontWeight: "700",
                     }}>✓</div>
                     <span style={{ fontSize: "14px", color: C.textSecondary, lineHeight: "1.5" }}>{f}</span>
                   </div>
