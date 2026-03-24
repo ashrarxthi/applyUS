@@ -159,14 +159,9 @@ export default function PricingPage() {
           </div>
 
           {/* File Online */}
-          <div style={{ background: C.white, borderRadius: "16px", border: `2px solid ${C.gold}`, overflow: "hidden" }}>
-            <div style={{ background: C.gold, padding: "10px 36px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <span style={{ fontSize: "12px", fontWeight: "700", color: C.white, letterSpacing: "0.5px" }}>MOST POPULAR</span>
-              <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.8)", fontWeight: "500" }}>Attorney-assisted</span>
-            </div>
-
+          <div style={{ background: C.white, borderRadius: "16px", border: `1.5px solid ${C.border}`, overflow: "hidden" }}>
             <div style={{ padding: "36px 36px 28px" }}>
-              <div style={{ fontSize: "11px", fontWeight: "700", color: C.gold, textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: "12px" }}>
+              <div style={{ fontSize: "11px", fontWeight: "700", color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: "12px" }}>
                 File Online with Attorney
               </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "6px" }}>
@@ -181,12 +176,12 @@ export default function PricingPage() {
                   <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
                     <div style={{
                       width: "20px", height: "20px", borderRadius: "50%",
-                      background: C.gold,
+                      background: C.borderLight, border: `1.5px solid ${C.border}`,
                       display: "flex", alignItems: "center", justifyContent: "center",
                       flexShrink: 0, marginTop: "1px", fontSize: "10px",
-                      color: C.white, fontWeight: "700",
+                      color: C.textSecondary, fontWeight: "700",
                     }}>✓</div>
-                    <span style={{ fontSize: "14px", color: C.navy, lineHeight: "1.5", fontWeight: i === 0 ? "600" : "400" }}>{f}</span>
+                    <span style={{ fontSize: "14px", color: C.textSecondary, lineHeight: "1.5" }}>{f}</span>
                   </div>
                 ))}
               </div>
@@ -195,20 +190,20 @@ export default function PricingPage() {
                 onClick={() => navigate(`/apply/${formId}/start`)}
                 style={{
                   width: "100%", padding: "14px", borderRadius: "9px",
-                  border: "none", background: C.gold,
-                  color: C.white, fontSize: "15px", fontWeight: "700",
+                  border: `2px solid ${C.navy}`, background: C.white,
+                  color: C.navy, fontSize: "15px", fontWeight: "700",
                   cursor: "pointer", fontFamily: "'Plus Jakarta Sans', sans-serif",
-                  transition: "background 0.15s",
+                  transition: "all 0.15s",
                 }}
-                onMouseEnter={e => e.currentTarget.style.background = "#b07d1e"}
-                onMouseLeave={e => e.currentTarget.style.background = C.gold}
+                onMouseEnter={e => { e.currentTarget.style.background = C.navy; e.currentTarget.style.color = C.white; }}
+                onMouseLeave={e => { e.currentTarget.style.background = C.white; e.currentTarget.style.color = C.navy; }}
               >
                 Start My Application →
               </button>
             </div>
 
-            <div style={{ background: C.goldLight, borderTop: `1px solid ${C.goldBorder}`, padding: "14px 36px" }}>
-              <p style={{ fontSize: "12px", color: "#7a5810", lineHeight: "1.6" }}>
+            <div style={{ background: C.offWhite, borderTop: `1px solid ${C.borderLight}`, padding: "14px 36px" }}>
+              <p style={{ fontSize: "12px", color: C.textMuted, lineHeight: "1.6" }}>
                 Best for: people who want peace of mind that a licensed attorney has reviewed and filed their application.
               </p>
             </div>
