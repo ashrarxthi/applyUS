@@ -147,7 +147,7 @@ export default function DIYKitPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           sourceId: result.token,
-          amount: 15000, // $150.00 in cents
+          amount: 100, // $1.00 in cents
           email,
           name,
           formId,
