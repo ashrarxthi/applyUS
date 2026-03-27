@@ -99,7 +99,7 @@ export default function DIYKitPage() {
           ".input-container": { borderRadius: "8px", borderColor: "#e5dfd6" },
           ".input-container.is-focus": { borderColor: "#0d2444" },
           ".input-container.is-error": { borderColor: "#dc2626" },
-          input: { fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "14px", color: "#0d2444" },
+          input: { fontSize: "14px", color: "#0d2444" },
           "input::placeholder": { color: "#9aa5b8" },
         },
       });
@@ -258,7 +258,7 @@ export default function DIYKitPage() {
               {!sqReady && !sqError && (
                 <p style={{ fontSize: "12px", color: C.textMuted, textAlign: "center", marginBottom: "12px" }}>Loading secure payment form…</p>
               )}
-              {sqError && (
+              {sqError &&!sqReady &&(
                 <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", borderRadius: "8px", padding: "10px 14px", marginBottom: "12px" }}>
                   <p style={{ color: C.danger, fontSize: "13px" }}>{sqError}</p>
                 </div>
