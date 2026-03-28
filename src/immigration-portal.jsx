@@ -960,10 +960,11 @@ function Footer() {
   );
 }
 
-
 // ─── App ───────────────────────────────────────────────────────────────────
 
 export default function ImmigrationPortal() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const link = document.createElement("link");
     link.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap";
@@ -978,7 +979,7 @@ export default function ImmigrationPortal() {
     <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <Navbar
         onConsult={() => alert("Consultation scheduling — connect your calendar here.")}
-        onSignIn={() => window.location.href = "/login"}
+        onSignIn={() => navigate("/login")}
       />
       <Hero onGetStarted={() => document.getElementById("forms")?.scrollIntoView({ behavior: "smooth" })} />
       <div id="forms">
