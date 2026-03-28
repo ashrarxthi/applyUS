@@ -181,16 +181,14 @@ function Navbar({ onConsult, onSignIn }) {
       </div>
 
       <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-        <button onClick={onSignIn} style={{
+        <a href="/login" style={{
           background: "transparent", color: "rgba(255,255,255,0.75)", border: "1px solid rgba(255,255,255,0.25)",
           padding: "9px 20px", borderRadius: "7px", fontSize: "13px",
           fontWeight: "500", cursor: "pointer", fontFamily: "'Plus Jakarta Sans', sans-serif",
-          transition: "all 0.15s",
-        }}
-          onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = C.white; }}
-          onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "rgba(255,255,255,0.75)"; }}>
+          textDecoration: "none", display: "inline-block", transition: "all 0.15s",
+        }}>
           Sign In
-        </button>
+        </a>
         <button onClick={onConsult} style={{
           background: C.gold, color: C.white, border: "none",
           padding: "10px 22px", borderRadius: "7px", fontSize: "13px",
@@ -990,5 +988,3 @@ export default function ImmigrationPortal() {
     </div>
   );
 }
-
-
