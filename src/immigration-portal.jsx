@@ -280,7 +280,7 @@ function FormsSection() {
 
   return (
     <div style={{ background: C.offWhite, padding: "72px 2.5rem 80px" }}>
-      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+      <div style={{ maxWidth: "100%", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "48px" }}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "38px", fontWeight: "600", color: C.navy, marginBottom: "14px" }}>
             Immigration Form Packages
