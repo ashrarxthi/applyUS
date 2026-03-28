@@ -960,14 +960,10 @@ function Footer() {
   );
 }
 
+
 // ─── App ───────────────────────────────────────────────────────────────────
 
-function NavbarWithRouter({ onConsult }) {
-  const navigate = useNavigate();
-  return <Navbar onConsult={onConsult} onSignIn={() => navigate("/login")} />;
-}
-
-export default function App() {
+export default function ImmigrationPortal() {
   useEffect(() => {
     const link = document.createElement("link");
     link.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap";
@@ -980,7 +976,10 @@ export default function App() {
 
   return (
     <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-      <NavbarWithRouter onConsult={() => alert("Consultation scheduling — connect your calendar here.")} />
+      <Navbar
+        onConsult={() => alert("Consultation scheduling — connect your calendar here.")}
+        onSignIn={() => window.location.href = "/login"}
+      />
       <Hero onGetStarted={() => document.getElementById("forms")?.scrollIntoView({ behavior: "smooth" })} />
       <div id="forms">
         <FormsSection />
