@@ -5,6 +5,7 @@ import DIYKitPage from "./DIYKitPage";
 import LoginPage from "./LoginPage";
 import I90SmartForm from "./I90SmartForm";
 
+
 function FormRoute() {
   const { formId } = useParams();
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function FormRoute() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Routes>
         <Route path="/" element={<ImmigrationPortal />} />
         <Route path="/login" element={<LoginPage />} />
