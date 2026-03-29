@@ -77,7 +77,7 @@ export default function DIYKitPage() {
 
     const script = document.createElement("script");
     script.id  = "square-sdk";
-    script.src = "https://sandbox.web.squarecdn.com/v1/square.js";
+    script.src = import.meta.env.VITE_SQUARE_ENV === "production" ? "https://web.squarecdn.com/v1/square.js" : "https://sandbox.web.squarecdn.com/v1/square.js";
     script.onload = initSquare;
     document.head.appendChild(script);
 
@@ -147,7 +147,7 @@ export default function DIYKitPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           sourceId: result.token,
-          amount: 100, // $1.00 in cents
+          amount: 15000, // $150.00 in cents
           email,
           name,
           formId,
@@ -228,7 +228,7 @@ export default function DIYKitPage() {
                   <div style={{ fontWeight: "600", color: C.navy, fontSize: "14px" }}>{formId} DIY Filing Kit</div>
                   <div style={{ color: C.textMuted, fontSize: "12px", marginTop: "3px" }}>PDF download + email delivery</div>
                 </div>
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "22px", fontWeight: "700", color: C.navy }}>$1.11</div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "22px", fontWeight: "700", color: C.navy }}>$150</div>
               </div>
               {["Step-by-step filing instructions", "Complete document checklist", "Cover letter template", "Mailing address guide by state"].map((f, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
@@ -258,7 +258,7 @@ export default function DIYKitPage() {
               {!sqReady && !sqError && (
                 <p style={{ fontSize: "12px", color: C.textMuted, textAlign: "center", marginBottom: "12px" }}>Loading secure payment form…</p>
               )}
-              {sqError &&!sqReady &&(
+              {sqError && (
                 <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", borderRadius: "8px", padding: "10px 14px", marginBottom: "12px" }}>
                   <p style={{ color: C.danger, fontSize: "13px" }}>{sqError}</p>
                 </div>
@@ -288,7 +288,7 @@ export default function DIYKitPage() {
               cursor: loading || !sqReady ? "not-allowed" : "pointer",
               fontFamily: "'Plus Jakarta Sans', sans-serif", transition: "all 0.15s",
             }}>
-              {loading ? "Processing payment…" : "Purchase Kit — $1.11"}
+              {loading ? "Processing payment…" : "Purchase Kit — $150"}
             </button>
 
             <p style={{ textAlign: "center", fontSize: "11px", color: C.textMuted, marginTop: "12px", lineHeight: "1.6" }}>
@@ -332,7 +332,7 @@ export default function DIYKitPage() {
                 padding: "12px 24px", borderRadius: "8px", fontSize: "14px",
                 fontWeight: "600", cursor: "pointer", fontFamily: "'Plus Jakarta Sans', sans-serif",
               }}>
-                Upgrade to Attorney Filing — Credit $1.11 →
+                Upgrade to Attorney Filing — Credit $150 →
               </button>
               <button onClick={() => navigate("/")} style={{
                 background: "transparent", color: C.textSecondary, border: "none",

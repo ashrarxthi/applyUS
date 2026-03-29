@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch("https://connect.squareupsandbox.com/v2/payments", {
+    const response = await fetch(process.env.SQUARE_ENV === "production" ? "https://connect.squareup.com/v2/payments" : "https://connect.squareupsandbox.com/v2/payments", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
